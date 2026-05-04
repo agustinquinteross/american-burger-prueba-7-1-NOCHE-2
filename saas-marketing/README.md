@@ -1,32 +1,35 @@
 # Marketing OS SaaS (PHP/MySQL)
 
-Plataforma SaaS multi-cliente para operación de marketing con reglas de decisión, IA híbrida y automatización.
+Sistema SaaS multi-cliente de marketing inteligente con decisiones automáticas, IA híbrida y autopiloto semanal.
 
-## Módulos
-- Multi-tenant (cliente/proyecto)
-- Calendario inteligente
-- Motor de reglas
-- IA híbrida (plantillas + scoring + opcional LLM)
-- Automatización por cron
-- Notificaciones (email, WhatsApp link, Telegram)
+## Capacidades implementadas
+- Multi-tenant con `api_tokens`.
+- Calendario inteligente (FullCalendar) con sugerencias dinámicas.
+- Motor de reglas estratégicas (alertas + recomendaciones).
+- IA híbrida para ideas y copies por tono.
+- Modo piloto automático: crea borradores semanales automáticamente.
+- Cron diario: analiza actividad, genera alertas y jobs.
 
 ## Arranque rápido
 1. Importar `database/migrations/001_schema.sql` en MySQL 8+
 2. Configurar `config/app.php`
-3. Levantar servidor:
+3. Seed de prueba mínimo:
+   - tenant id=1
+   - project id=1
+   - token en `api_tokens`: `demo-token`
+4. Levantar servidor:
    ```bash
    php -S localhost:8081 -t public
    ```
-4. Ejecutar análisis diario:
-   ```bash
-   php cron/daily_analysis.php
-   ```
+5. Abrir dashboard `http://localhost:8081`
 
-## Endpoints API
+## API interna
 - `GET /api/dashboard?tenant_id=1`
-- `GET /api/calendar/suggestions?tenant_id=1&project_id=1`
-- `POST /api/content/generate-copy`
-- `POST /api/automation/autopilot`
+- `GET /api/calendar/suggestions?tenant_id=1`
+- `POST /api/content/generate-copy?tenant_id=1`
+- `POST /api/automation/autopilot?tenant_id=1`
 
-## Arquitectura
-Ver `templates/architecture.md`.
+## Cron
+```bash
+php cron/daily_analysis.php
+```

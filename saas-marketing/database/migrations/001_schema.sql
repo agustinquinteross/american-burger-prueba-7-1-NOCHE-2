@@ -6,6 +6,28 @@ CREATE TABLE tenants (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE users (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  tenant_id BIGINT NOT NULL,
+  full_name VARCHAR(120) NOT NULL,
+  email VARCHAR(140) NOT NULL UNIQUE,
+  role ENUM('owner','manager','analyst') NOT NULL DEFAULT 'manager',
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (tenant_id) REFERENCES tenants(id)
+);
+
+CREATE TABLE api_tokens (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  tenant_id BIGINT NOT NULL,
+  user_id BIGINT NULL,
+  token VARCHAR(128) NOT NULL UNIQUE,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (tenant_id) REFERENCES tenants(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 CREATE TABLE projects (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   tenant_id BIGINT NOT NULL,

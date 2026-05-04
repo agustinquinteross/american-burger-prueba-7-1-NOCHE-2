@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marketing OS Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+<body>
+  <header><h1>Marketing OS</h1><button id="strategyBtn">Sugerir estrategia</button></header>
+  <main class="grid">
+    <section><h2>Estado</h2><div id="alerts"></div></section>
+    <section><h2>Asistente diario</h2><ul id="assistant"></ul></section>
+    <section><h2>Generador de copy</h2><input id="topic" placeholder="Tema"/><select id="tone"><option>ventas</option><option>emocional</option><option selected>educativo</option></select><button id="copyBtn">Generar</button><p id="copyOut"></p></section>
+  </main>
+  <script src="/assets/js/app.js"></script>
+</body>
+</html>
